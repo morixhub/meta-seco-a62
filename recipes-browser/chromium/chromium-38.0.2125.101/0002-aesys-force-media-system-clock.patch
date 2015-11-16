@@ -1,0 +1,16 @@
+--- a/media/base/pipeline.cc	2015-11-13 15:35:04.936914340 +0100
++++ b/media/base/pipeline.cc	2015-11-13 15:37:16.272918004 +0100
+@@ -402,8 +402,13 @@
+           return;
+         }
+ 
++        /* //!! AESYS-BEGIN */
++        /* Comment out the following block for forcing the usage of system clock */
++        /* 
+         if (audio_renderer_)
+           time_source_ = audio_renderer_->GetTimeSource();
++        */
++        /* //!! AESYS-END */
+ 
+         {
+           PipelineMetadata metadata;

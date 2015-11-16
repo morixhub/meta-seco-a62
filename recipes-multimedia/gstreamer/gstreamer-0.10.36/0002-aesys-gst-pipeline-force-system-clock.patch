@@ -1,0 +1,20 @@
+--- a/gst/gstpipeline.c	2015-11-13 14:26:43.704799945 +0100
++++ b/gst/gstpipeline.c	2015-11-13 14:26:53.592800221 +0100
+@@ -696,10 +696,17 @@
+         clock, clock ? GST_STR_NULL (GST_OBJECT_NAME (clock)) : "-");
+   } else {
+     GST_OBJECT_UNLOCK (pipeline);
++    
+     /* let the parent bin select a clock */
+     clock =
+         GST_ELEMENT_CLASS (parent_class)->provide_clock (GST_ELEMENT
+         (pipeline));
++        
++    /* //!! AESYS-BEGIN */
++    /* //!! force the clock to NULL so that we always use the system clock */
++    clock = NULL;
++    /* //!! AESYS-END */
++    
+     /* no clock, use a system clock */
+     if (!clock) {
+       clock = gst_system_clock_obtain ();

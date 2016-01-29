@@ -1,0 +1,35 @@
+diff --git a/arch/arm/boot/dts/imx6qdl-seco_SBC_A62.dtsi b/arch/arm/boot/dts/imx6qdl-seco_SBC_A62.dtsi
+index 4839bc4..e714cd7 100644
+--- a/arch/arm/boot/dts/imx6qdl-seco_SBC_A62.dtsi
++++ b/arch/arm/boot/dts/imx6qdl-seco_SBC_A62.dtsi
+@@ -695,6 +695,18 @@
+ 				hsync-len = <0xa>;
+ 				vsync-len = <0x2>;
+ 			};
++			
++			timing7: LDB-1200P60 {
++                                clock-frequency = <0x7bfa480>;
++                                hactive = <0x780>;
++                                vactive = <0x4B0>;
++                                hback-porch = <0x64>;
++                                hfront-porch = <0x28>;
++                                vback-porch = <0x1e>;
++                                vfront-porch = <0x2>;
++                                hsync-len = <0xa>;
++                                vsync-len = <0x2>;
++                        };
+ 
+ 		};
+ 	};
+@@ -707,9 +719,9 @@
+ 
+ 		crtc = "ipu2-di1";
+ 		display-timings {
+-			native-mode = <&timing7>;
++			native-mode = <&timing8>;
+ 
+-			timing7: seco_lvds1 {
++			timing8: seco_lvds1 {
+ 				clock-frequency = <38000000>;
+ 				hactive = <800>;
+ 				vactive = <480>;

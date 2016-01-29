@@ -1,0 +1,12 @@
+diff --git a/common/cmd_seco_config.c b/common/cmd_seco_config.c
+index e718f88..96d0814 100644
+--- a/common/cmd_seco_config.c
++++ b/common/cmd_seco_config.c
+@@ -514,6 +514,7 @@ static lvds_video_spec_t lvds_video_spec_list [] = {
+ 	{ "WXGA	  [1368x768]",  "LDB-WXGA",    "RGB24",  "",         1 },
+ 	{ "SXGA	  [1280x1024]", "LDB-SXGA",    "RGB24",  "",         1 },
+ 	{ "HD1080 [1920x1080]", "LDB-1080P60", "RGB24",  "ldb=spl0", 2 },
++	{ "HD1200 [1920x1200]", "LDB-1200P60", "RGB24",  "ldb=spl0", 2 },
+ };
+ 
+ 

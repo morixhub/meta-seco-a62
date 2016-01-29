@@ -66,7 +66,7 @@ IMAGE_INSTALL_append = " gcc g++ binutils libgcc libgcc-dev libstdc++ libstdc++-
     i2c-tools \ 
     strace \
     minicom \
-    chromium
+    chromium \
     "
 
 IMAGE_INSTALL_remove = "packagegroup-qt5-demos"

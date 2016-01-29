@@ -121,6 +121,14 @@ by the author.
 
    at the very end of "conf/local.conf"
 
+   Alternatively, it is possible to build the image named "fsl-image-qt5" (which
+   is the one suggested by SECO); in that case the distro should be left to
+
+   DISTRO ?= 'poky'
+
+   Browser chromium can simply be added to the "fsl-image-qt5" image simply
+   adding IMAGE_INSTALL_append = " chromium" at the very end of "conf/local.conf"
+
 
 7) Configure the environment for compilation (the following command is proposed
    when leaving seco-yocto_configurator.sh at step #5: take down a note!)
@@ -130,9 +138,15 @@ by the author.
 
 8) Prepare the image
 
-   The image is "baked" issuing the command:
+   "kiko" image is "baked" issuing the command:
 
    bitbake kiko-image
+
+   - otherwise -
+
+   "fsl-image-qt5" is "baked" issuing the command:
+
+   bitbake fsl-image-qt5
 
    Please wait... and wait again... after a few hours the filesystem
    image will be ready and packaged to tmp/deploy/images and can be deployed

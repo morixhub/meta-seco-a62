@@ -23,7 +23,7 @@ This is a step-by-step guide to reproduce the same exact image prepared
 by the author.
 
 
-1) Download the REPO utils from Google (used by fsl-community-bsp)
+1) Download the REPO utils from Google (used by fsl-released-bsp)
 
    mkdir ~/bin
 
@@ -65,15 +65,15 @@ by the author.
    git clone https://github.com/morixhub/meta-seco-a62.git
 
 
-5) Launch SECO yocto configurator
+5) Launch SECO yocto configurator tool
 
    cd ~/fsl-release-bsp
 
    ./seco-yocto_configurator.sh -c
 
    Follow the instructions on screen for configuring the compilation
-   but don't start it: there are additional configuration steps to
-   be manually performed...
+   but don't start it (simply save & exit without compiling:
+   there are additional configuration steps to be manually performed...)
 
 
 6) Adjust your conf/bblayers.conf and conf/local.conf
@@ -115,32 +115,31 @@ by the author.
    DISTRO ?= 'kiko-distro'
 
    Furthermore, since "chromium" is included in kiko-image, then you
-   have to add
+   have to add:
 
    LICENSE_FLAGS_WHITELIST += " commercial"
 
    at the very end of "conf/local.conf"
 
 
-6) Configure the environment (the following command is proposed
-   when leaving seco-yocto_configurator.sh at step #5: take a note!)
+7) Configure the environment for compilation (the following command is proposed
+   when leaving seco-yocto_configurator.sh at step #5: take down a note!)
 
    MACHINE=seco-a62-qd-256mbx4 source seco-setup-release.sh -b seco_build
 
 
-6) Prepare the image
+8) Prepare the image
 
    The image is "baked" issuing the command:
 
    bitbake kiko-image
 
    Please wait... and wait again... after a few hours the filesystem
-   image will be ready and packaged to
-   tmp/deploy/images
-   and can be deployed to SD card the usual way.
+   image will be ready and packaged to tmp/deploy/images and can be deployed
+   to SD card the usual way.
 
 
-7) Prepare the Qt5 toolchain
+9) Prepare the Qt5 toolchain
 
    The Qt5 toolchain is prepared issuing the command:
 
@@ -152,5 +151,5 @@ by the author.
    (but this part is not covered by this guide).
 
 
-8) Enjoy! :)
+10) Enjoy! :)
 

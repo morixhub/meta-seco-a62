@@ -71,7 +71,7 @@ IMAGE_INSTALL_append = " gcc g++ binutils libgcc libgcc-dev libstdc++ libstdc++-
 
 IMAGE_INSTALL_remove = "packagegroup-qt5-demos"
 
-
+export IMAGE_BASENAME = "kiko"
 
 
 

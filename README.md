@@ -1,2 +1,156 @@
-# meta-seco-a62
-Patches for the SECO SBC-A62 board
+This README file contains information on the contents of the
+meta-seco-a62 layer.
+
+The meta-seco-a62 layer makes easier to use Yocto for preparing a linux image
+for the SECO SBC-A62 board (http://www.seco.com/prods/it/secosbc-a62.html).
+
+The layer provides some customization of the Yocto standard packages in order
+to workaround some issues that the author has personally faced while
+preparing a Yocto image for the target system.
+
+Actually the layer only provides an image type (named "kiko-image")
+which is based on "fsl-image-qt5".
+
+All the layers have been tested under their respective "dizzy" branch. It
+is not excluded that the layer definition works using other branches but it
+has not been tested.
+
+
+Step-by-step guide to image baking
+=================================================
+
+This is a step-by-step guide to reproduce the same exact image prepared
+by the author.
+
+
+1) Download the REPO utils from Google (used by fsl-community-bsp)
+
+   mkdir ~/bin
+
+   curl http://commondatastorage.googleapis.com/git-repo-downloads/repo >
+        ~/bin/repo
+
+   chmod a+x ~/bin/repo
+
+   export PATH=${PATH}:~/bin
+
+
+2) Download the Freescale BSP and the Yocto system (poky), branch 'dizzy'
+
+   mkdir ~/fsl-release-bsp
+
+   cd ~/fsl-release-bsp
+
+   repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git
+        -b imx-3.14.28-1.0.0_ga
+
+   repo sync
+
+
+3) Download and prepare the meta-seco-bsp-release layer
+
+   cd ~/fsl-release-bsp/sources
+
+   git clone https://secogit.seco.com/imx6_release/meta-seco-bsp-release.git
+
+   cp meta-seco-bsp-release/seco-setup-release.sh ../
+
+   cp meta-seco-bsp-release/seco-yocto_configurator.sh ../
+
+
+4) Download the meta-seco-a62 layer (this layer)
+
+   cd ~/fsl-release-bsp/sources
+
+   git clone https://github.com/morixhub/meta-seco-a62.git
+
+
+5) Launch SECO yocto configurator
+
+   cd ~/fsl-release-bsp
+
+   ./seco-yocto_configurator.sh -c
+
+   Follow the instructions on screen for configuring the compilation
+   but don't start it: there are additional configuration steps to
+   be manually performed...
+
+
+6) Adjust your conf/bblayers.conf and conf/local.conf
+
+   Make sure that your "conf/bblayers.conf" contains a reference to all the
+   requested layers; the file should contain something like:
+
+   BBLAYERS = " \
+      ${BSPDIR}/sources/poky/meta \
+      ${BSPDIR}/sources/poky/meta-yocto \
+      \
+      ${BSPDIR}/sources/meta-openembedded/meta-oe \
+      ${BSPDIR}/sources/meta-openembedded/meta-multimedia \
+      \
+      ${BSPDIR}/sources/meta-fsl-arm \
+      ${BSPDIR}/sources/meta-fsl-arm-extra \
+      ${BSPDIR}/sources/meta-fsl-demos \
+   "
+
+   ## Freescale Yocto Release layer
+   BBLAYERS += " ${BSPDIR}/sources/meta-fsl-bsp-release/imx/meta-fsl-arm "
+   BBLAYERS += " ${BSPDIR}/sources/meta-fsl-bsp-release/imx/meta-fsl-demos "
+   BBLAYERS += " ${BSPDIR}/sources/meta-browser "
+   BBLAYERS += " ${BSPDIR}/sources/meta-openembedded/meta-gnome "
+   BBLAYERS += " ${BSPDIR}/sources/meta-openembedded/meta-networking "
+   BBLAYERS += " ${BSPDIR}/sources/meta-openembedded/meta-python "
+   BBLAYERS += " ${BSPDIR}/sources/meta-openembedded/meta-ruby "
+   BBLAYERS += " ${BSPDIR}/sources/meta-openembedded/meta-filesystems "
+   BBLAYERS += " ${BSPDIR}/sources/meta-qt5 "
+   BBLAYERS += " ${BSPDIR}/sources/meta-fsl-bsp-release/imx/meta-fsl-qt5 "
+   BBLAYERS += " ${BSPDIR}/sources/meta-fsl-bsp-release/imx/meta-fsl-bluez "
+   BBLAYERS += " ${BSPDIR}/sources/meta-seco-bsp-release/ "
+   BBLAYERS += " ${BSPDIR}/sources/meta-seco-a62/ "
+
+   meta-seco-a62 works creating a customized distribution named "kiko", so
+   modify your "conf/local.conf" file in order to reference the right
+   distribution; the distro variable should be set to:
+
+   DISTRO ?= 'kiko-distro'
+
+   Furthermore, since "chromium" is included in kiko-image, then you
+   have to add
+
+   LICENSE_FLAGS_WHITELIST += " commercial"
+
+   at the very end of "conf/local.conf"
+
+
+6) Configure the environment (the following command is proposed
+   when leaving seco-yocto_configurator.sh at step #5: take a note!)
+
+   MACHINE=seco-a62-qd-256mbx4 source seco-setup-release.sh -b seco_build
+
+
+6) Prepare the image
+
+   The image is "baked" issuing the command:
+
+   bitbake kiko-image
+
+   Please wait... and wait again... after a few hours the filesystem
+   image will be ready and packaged to
+   tmp/deploy/images
+   and can be deployed to SD card the usual way.
+
+
+7) Prepare the Qt5 toolchain
+
+   The Qt5 toolchain is prepared issuing the command:
+
+   bitbake meta-toolchain-qt5
+
+   This will produce an installer in tmp/deploy/sdk which can be used for
+   installing the toolchain on developer machines. At this point QtCreator
+   has to be properly configured in order to use the brand new toolchain
+   (but this part is not covered by this guide).
+
+
+8) Enjoy! :)
+

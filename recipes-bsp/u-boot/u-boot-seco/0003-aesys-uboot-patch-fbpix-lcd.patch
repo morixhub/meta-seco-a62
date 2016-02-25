@@ -1,0 +1,11 @@
+--- mx6seco_common_pre.h	2016-02-25 07:51:34.013002633 +0100
++++ mx6seco_common.h	2016-02-25 07:51:55.509003232 +0100
+@@ -503,7 +503,7 @@
+ #define CONFIG_ENV_VIDEO                                          \
+ 	"video_lvds1=video=mxcfb1:dev=ldb,LDB-WVGA,if=RGB666\0"       \
+ 	"video_lvds2=video=mxcfb2:dev=ldb,LDB-WVGA,if=RGB666\0"       \
+-	"video_hdmi=video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24\0"   \
++	"video_hdmi=video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24,fbpix=BGR32\0"   \
+ 	"videomode=video=mxcfb0:dev=hdmi,1920x1080M@60\0"
+ 
+ 

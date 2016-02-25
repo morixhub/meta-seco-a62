@@ -1,4 +1,4 @@
-require recipes-fsl/images/fsl-image-qt5.bb
+require recipes-fsl/images/fsl-image-multimedia-full.bb
 
 DESCRIPTION = "Aesys Kiko"
 LICENSE = "MIT"
@@ -25,6 +25,8 @@ IMAGE_INSTALL_append = " gcc g++ binutils libgcc libgcc-dev libstdc++ libstdc++-
     gst-plugins-good-rtpmanager \
     gst-plugins-good-rtp \
     gst-plugins-good-video4linux2 \
+    gst-plugins-bad \
+    gst-plugins-ugly \
     openssh-sftp-server \
     packagegroup-fsl-gstreamer \
     packagegroup-fsl-tools-testapps \
@@ -66,7 +68,6 @@ IMAGE_INSTALL_append = " gcc g++ binutils libgcc libgcc-dev libstdc++ libstdc++-
     i2c-tools \ 
     strace \
     minicom \
-    chromium \
     "
 
 IMAGE_INSTALL_remove = "packagegroup-qt5-demos"

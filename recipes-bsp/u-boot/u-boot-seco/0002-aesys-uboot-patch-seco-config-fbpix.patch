@@ -1,0 +1,13 @@
+diff --git a/common/cmd_seco_config.c b/common/cmd_seco_config.c
+index e718f88..1090404 100644
+--- a/common/cmd_seco_config.c
++++ b/common/cmd_seco_config.c
+@@ -1284,7 +1285,7 @@ static int do_seco_config (cmd_tbl_t *cmdtp, int flag, int argc, char * const ar
+ 				ARRAY_SIZE(video_mode_list));
+ 
+ 		if ( video_mode_list[video_mode_selection].fb_hdmi >= 0 ) {
+-			sprintf (video_hdmi_video, "video=mxcfb%d:dev=hdmi,1920x1080M@60,if=RGB24",
++			sprintf (video_hdmi_video, "video=mxcfb%d:dev=hdmi,1920x1080M@60,if=RGB24,fbpix=BGR32",
+ 					video_mode_list[video_mode_selection].fb_hdmi);
+ 		} else
+ 			sprintf (video_hdmi_video, " ");
